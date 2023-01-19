@@ -63,7 +63,6 @@ export const CardView = () => {
       characters.data.data[
         Math.floor(Math.random() * characters.data.data.length)
       ];
-    console.log(character);
     return character;
   };
 
@@ -81,13 +80,6 @@ export const CardView = () => {
       const pageNumber = getPageNumber(allCharacters);
 
       const charactersByPage = await searchAnime.charactersByPage(pageNumber);
-
-      // interface characterProps {
-      //   mal_id: number;
-      //   name: number;
-      //   about: string;
-      //   images: object;
-      // }
 
       const {
         mal_id: characterId,
@@ -113,7 +105,8 @@ export const CardView = () => {
       setCharacterImage(images.jpg.image_url);
       setButtonTextDesc("Get another");
     } catch (error) {
-      console.log(error);
+      console.log("Error");
+      // console.log(error);
     }
 
     setIsAnimeTitle(true);
