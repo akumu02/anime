@@ -2,8 +2,6 @@
   "name": "anime-options",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
-  "homepage": "https://akumu02.github.io/anime-options/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
