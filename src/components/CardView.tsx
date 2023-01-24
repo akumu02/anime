@@ -29,7 +29,7 @@ import {
   // ImageContainer,
   LogoImage,
 } from "./CardStyles";
-import { useState } from "react";
+import { useEffect, useInsertionEffect, useState } from "react";
 import { AxiosResponse } from "axios";
 
 const characterDesc = "The option to know the anime character you are today";
@@ -67,7 +67,7 @@ export const CardView = () => {
   };
 
   const getCharacter = async () => {
-    setLoading(true);
+    // setLoading(true);
     setCharacterImage(
       "https://media.tenor.com/G6W5nikD-xsAAAAC/popteamepic-now-loading.gif"
     );
@@ -76,10 +76,12 @@ export const CardView = () => {
 
     try {
       const searchAnime = new SearchAnime();
+
       const allCharacters = await searchAnime.allCharacters();
       const pageNumber = getPageNumber(allCharacters);
+      let charactersByPage: AxiosResponse<any, any>;
 
-      const charactersByPage = await searchAnime.charactersByPage(pageNumber);
+      charactersByPage = await searchAnime.charactersByPage(pageNumber);
 
       const {
         mal_id: characterId,
@@ -90,10 +92,13 @@ export const CardView = () => {
       } = getRandomCharacter(charactersByPage);
 
       const characterByid = await searchAnime.characterById(characterId);
-      const animeTitle = characterByid.data.data.anime[0]?.anime?.title;
-      const mangaTitle = characterByid.data.data.manga[0]?.manga?.title;
+      const characterData = characterByid.data.data;
+      const title = characterData.anime
+        ? characterData.anime[0]?.anime?.title
+        : characterData.manga[0]?.manga?.title;
+      // const mangaTitle = characterByid?.data.data.manga[0]?.manga?.title;
 
-      setCharacterTitle(`${name} from ${animeTitle || mangaTitle}`);
+      setCharacterTitle(`${name} from ${title}`);
 
       setoptionCharacter({
         title: name,
@@ -106,12 +111,19 @@ export const CardView = () => {
       setButtonTextDesc("Get another");
     } catch (error) {
       console.log("Error");
-      // console.log(error);
+      console.log(error);
     }
 
     setIsAnimeTitle(true);
-    setLoading(false);
+    // setTimeout(async () => {
+    //   setLoading(false);
+    // }, 3000);
   };
+
+  useEffect(() => {
+    const value = characterTitle ? false : true;
+    setLoading(value);
+  }, [characterTitle]);
 
   return (
     <>
