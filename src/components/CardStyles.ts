@@ -101,7 +101,7 @@ export const CardImage = styled.div<{ background: string }>`
 `;
 
 export const CardTextWrapper = styled.div`
-  overflow: auto;
+  overflow: scroll;
   grid-area: text;
   margin: 25px;
 `;
@@ -151,14 +151,6 @@ export const CardTextBody = styled.p`
   font-size: 15px;
   font-weight: 300;
 `;
-
-export const CharacterCardTextBody = styled.p`
-  color: grey;
-  text-align: center;
-  font-size: 25.5vw;
-`;
-// font-size: 15px;
-// font-weight: 300;
 
 export const CardStats = styled.div`
   display: flex;

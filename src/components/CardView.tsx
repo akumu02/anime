@@ -47,7 +47,7 @@ export const CardView = () => {
   const [characterDescription, setCharacterDescription] =
     useState(characterDesc);
   const [buttonTextDesc, setButtonTextDesc] = useState("Get!");
-  const [isAnimeTitle, setIsAnimeTitle] = useState<boolean>();
+  const [isAnimeTitle, setIsAnimeTitle] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
 
   const getPageNumber = (characters: AxiosResponse<any, any>) => {
@@ -108,13 +108,17 @@ export const CardView = () => {
       });
       setCharacterDescription(desc);
       setCharacterImage(images.jpg.image_url);
-      setButtonTextDesc("Get another");
+      setIsAnimeTitle(true);
+      setButtonTextDesc("Get another!");
     } catch (error) {
       console.log("Error");
-      console.log(error);
+      setIsAnimeTitle(false);
+      setCharacterTitle("Character");
+      setCharacterImage(imgCharacter);
+      setCharacterDescription(characterDesc);
+      setButtonTextDesc("Get!");
     }
 
-    setIsAnimeTitle(true);
     // setTimeout(async () => {
     //   setLoading(false);
     // }, 3000);
